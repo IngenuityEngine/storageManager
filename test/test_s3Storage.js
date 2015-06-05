@@ -7,6 +7,8 @@ var expect = require('expect.js')
 /////////////////////////
 var storageManger = require('../storageManager/storageManager')
 
+var config = require('c:/temp/config.js')
+
 // Tests
 /////////////////////////
 describe('storageManger: s3Storage', function()
@@ -14,7 +16,7 @@ describe('storageManger: s3Storage', function()
 
 it('should load', function(done)
 {
-	var localStorage = storageManger.init('s3', {}, done)
+	var localStorage = storageManger.init('s3', config.s3, done)
 })
 
 
