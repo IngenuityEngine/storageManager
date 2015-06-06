@@ -9,8 +9,9 @@ function genericCallback ()
 var storage = storageManager.start('s3', config, genericCallback)
 
 //storage.listFiles("", genericCallback)
-//storage.addFile("woo.txt", "woo.txt",
+storage.addFile("justanothertest.txt", "C:/dev/storageManager/storageManager/justanothertest.txt",genericCallback)
 //storage.listFiles(""))
 storage.getFile("just_a_test.txt", "C:/dev/storageManager/storageManager/just_a_test.txt", genericCallback)
 storage.getFileUrl("just_a_test.txt")
 storage.getFileUrl("woo.txt")
+storage.listFiles("")

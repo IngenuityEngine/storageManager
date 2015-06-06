@@ -46,7 +46,8 @@ listFiles: function(path, callback)
 
 	fileList.on('error', function(err)
 	{
-		console.log("Error:", err)
+		console.log("Error listing files")
+		callback(err)
 	})
 	.on('end', function()
 	{
@@ -56,12 +57,11 @@ listFiles: function(path, callback)
 	{
 		console.log("data",data)
 	})
-	.on('progress', function()
+	/*.on('progress', function()
 	{
 		console.log("progress", fileList.progressAmount, fileList.progressTotal)
-	})
+	}) */
 
-	callback()
 },
 
 getFile: function(sourcePath, destinationPath, callback)
@@ -83,51 +83,48 @@ getFile: function(sourcePath, destinationPath, callback)
 		console.log("an error occurred while downloading the file")
 		callback(err)
 	})
-	.on('progress', function()
+	/*.on('progress', function()
 	{
 		console.log("progress", downloader.progressAmount, downloader.progressTotal);
-	})
+	}) */
 	.on('end', function() {
 		console.log("done downloading")
-
 	})
+
+	callback()
 },
 
 addFile: function(file, path, callback)
 {
 	console.log("found this")
-	var params = {
-	localFile: "C:/dev/storageManager/storageManager/woo.txt",
-
-	s3Params:
-		{
-			Bucket:"ingenuitystudios",
-			Key:'woo.txt'
-		}
+	var params =
+	{
+		localFile: path,
+		s3Params:
+			{
+				Bucket: this.bucket,
+				Key: file
+			}
 	}
 
-	var uploader = this.client.uploadFile(params)
+	//var uploader =
+	this.client.uploadFile(params)
 	.on('error', function(err)
 	{
-		console.error("unable to upload:", err.stack)
-	})
-	.on('progress', function()
-	{
-		console.log("progress", uploader.progressMd5Amount,
-		uploader.progressAmount, uploader.progressTotal)
+		console.error("An error occurred uploading the file")
+		callback(err)
 	})
 	.on('end', function()
 	{
-		console.log("done uploading");
+		console.log("done uploading")
 	})
+	callback()
 },
 
 getFileUrl: function(info, options, callback)
 {
-
 	// use info (ex id or name) to build a file path
-	var result = s3.getPublicUrlHttp(this.bucket, info)
-	console.log(result)
+	return s3.getPublicUrlHttp(this.bucket, info)
 },
 
 // end of class

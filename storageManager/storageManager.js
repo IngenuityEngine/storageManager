@@ -40,7 +40,7 @@ Base: Class.extend({
 		// store a file
 	},
 
-	getFileUrl: function(info, options, callback)
+	getFileUrl: function(info, callback)
 	{
 
 		// use info (ex id or name) to build a file path
