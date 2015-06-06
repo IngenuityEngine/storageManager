@@ -1,3 +1,4 @@
+// coren --test plugins/coren_permissionsManager/test/test_permissionsManager.js
 
 // Vendor Modules
 /////////////////////////
@@ -5,19 +6,23 @@ var expect = require('expect.js')
 
 // Our Modules
 /////////////////////////
-var storageManger = require('../storageManager/storageManager')
+var storageManager = require('../')
 
 var config = require('c:/temp/config.js')
 
 // Tests
 /////////////////////////
-describe('storageManger: s3Storage', function()
+describe('storageManager: s3Storage', function()
 {
 
 it('should load', function(done)
 {
-	var localStorage = storageManger.init('s3', config.s3, done)
+	var s3Storage = storageManager.start('s3', config.s3, done)
+	s3Storage.listFiles("", done)
+
 })
+
+
 
 
 

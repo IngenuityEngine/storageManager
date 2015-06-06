@@ -5,6 +5,7 @@
 var _ = require('lodash')
 var Class = require('uberclass')
 
+
 // Main Script
 /////////////////////////
 var StorageManager = module.exports = {
@@ -50,13 +51,13 @@ Base: Class.extend({
 }),
 
 
-
 // Plugin Management
 /////////////////////////
-init: function(pluginName, options, callback)
+start: function(pluginName, options, callback)
 {
 	var storageManager = new StorageManager.plugins[pluginName]()
 	storageManager.start(options, callback)
+	return storageManager
 },
 
 plugins: {},
@@ -67,6 +68,6 @@ addPlugin: function(pluginName, plugin)
 }
 
 
-
 // end of module
 }
+

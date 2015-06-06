@@ -17,7 +17,8 @@ describe('storageManger: localStorage', function()
 
 it('should load', function(done)
 {
-	var localStorage = storageManger.init('local', config.s3, done)
+	var localStorage = storageManger.init('local', config.s3,
+		localStorage.listFiles('hello', done))
 })
 
 
