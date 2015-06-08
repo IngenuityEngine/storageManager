@@ -3,6 +3,7 @@
 // Vendor Modules
 /////////////////////////
 var expect = require('expect.js')
+var _ = require('lodash')
 
 // Our Modules
 /////////////////////////
@@ -20,20 +21,55 @@ it('should load', function(done)
 	var s3Storage = storageManager.start('s3', config.s3, done)
 })
 
-it('should get files', function(done)
+it('should add files', function(done)
 {
 	var s3Storage = storageManager.start('s3', config.s3, function(){})
-	s3Storage.listFiles("", done)
+	s3Storage.addFile("woo.txt", "test/woo.txt", done)
+})
+
+it('should list files', function(done)
+{
+	var s3Storage = storageManager.start('s3', config.s3, function(){})
+	s3Storage.listFiles("", function(err, data)
+	{
+		if (err)
+		{
+			done(err)
+		}
+		else
+		{
+			var keys = _.map(data, function(entry) {return entry.Key})
+			_(keys).forEach(function (x)
+			{
+				console.log(x)
+				console.log(_.includes(['woo.txt', 'another folder', x]))
+				//expect(_.includes(['woo.txt', 'another folder/'], x)).to.be(true)
+			})
+		}
+	})
 })
 
 it('should download a file', function(done)
 {
 	var s3Storage = storageManager.start('s3', config.s3, function(){})
-	s3Storage.getFile("just_a_test.txt", "C:/Downloads/just_a_test.txt", done)
-
+	s3Storage.getFile("woo.txt", "C:/Downloads/woo.txt", done)
 })
 
-/*it('should throw an error downloading file', function(done)
+it('should give back a URL', function(done)
+{
+	var s3Storage = storageManager.start('s3', config.s3, function(){})
+	s3Storage.getFileUrl("woo.txt", function(err, url)
+	{
+		if (err)
+			console.log( ' Is this the error ',  err)
+		else
+			expect(url).to.equal("http://ingenuitystudios.s3.amazonaws.com/woo.txt")
+	})
+})
+
+
+
+it('should throw an error downloading file', function(done)
 {
 	var s3Storage = storageManager.start('s3', config.s3, function(){})
 	s3Storage.getFile("just_a_text.txt", "C:/Downloads/just_a_text.txt", function(err, data)
@@ -43,15 +79,7 @@ it('should download a file', function(done)
 		done()
 	})
 
-}) */
-
-it('should add a file', function(done)
-{
-	var s3Storage = storageManager.start('s3', config.s3, function(){})
-	s3Storage.addFile('woo.txt', 'woo.txt', done)
 })
-
-
 
 
 // end of test suite

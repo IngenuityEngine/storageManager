@@ -40,26 +40,35 @@ Base: Class.extend({
 		// store a file
 	},
 
-	getFileUrl: function(info, callback)
+	deleteFile : function(file, callback)
 	{
-
-		// use info (ex id or name) to build a file path
-
+		//delete a file
 	},
 
-	isFile: function (path, callback)
+	getFileUrl: function(info, callback)
 	{
+		// use info (ex id or name) to build a file path
+	},
 
-		// Checks whether there is a file at path
+	isFile: function(file, callback)
+	{
+		// Check whether file exists
+	},
 
+	listDirs: function(path, callback)
+	{
+		//List all directories in a certain path
+	},
+
+	makeDir: function(path, callback)
+	{
+		//Creates a new directory in the specified location
+	},
+
+	removeDir: function(path, callback)
+	{
+		//Removes a directory and all its contents
 	}
-
-	//ListDirs
-
-	//TODO
-	//removeFile
-
-	//removeDirectory
 
 // end of class
 }),

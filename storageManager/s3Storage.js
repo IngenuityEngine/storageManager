@@ -55,7 +55,6 @@ listFiles: function(path, callback)
 	})
 	.on('end', function()
 	{
-		console.log("Done!")
 		callback(null, results)
 	})
 	.on('data', function(data)
@@ -93,7 +92,6 @@ getFile: function(sourcePath, destinationPath, callback)
 
 addFile: function(file, path, callback)
 {
-	console.log("found this")
 	var params =
 	{
 		localFile: path,
@@ -104,25 +102,74 @@ addFile: function(file, path, callback)
 			}
 	}
 
-	//var uploader =
 	this.client.uploadFile(params)
 	.on('error', function(err)
 	{
 		console.error("An error occurred uploading the file")
+		callback(err)
 	})
 	.on('end', function()
 	{
 		console.log("done uploading")
-	})
 		callback()
-
+	})
 },
 
-getFileUrl: function(info, options, callback)
+deleteFile: function(file, callback)
 {
-	// use info (ex id or name) to build a file path
-	return s3.getPublicUrlHttp(this.bucket, info)
+	var params =
+	{
+		Bucket: this.bucket,
+		Delete:
+		{
+			Objects:
+			[
+				{
+					Key: file
+				}
+			]
+		}
+	}
+
+	this.client.deleteObjects(params)
+	.on('error', function(err)
+	{
+		console.error("An error occurred deleting the file")
+		callback(err)
+	})
+	.on('end', function()
+	{
+		console.log("done uploading")
+		callback()
+	})
 },
+
+isFile: function(file, callback)
+{
+
+},
+
+getFileUrl: function(info, callback)
+{
+	console.log(s3.getPublicUrlHttp(this.bucket,info))
+	callback(null, s3.getPublicUrlHttp(this.bucket, info))
+},
+
+listDirs: function(path, callback)
+{
+
+},
+
+makeDir: function(path, callback)
+{
+
+},
+
+removeDir: function(path, callback)
+{
+
+}
+
 
 // end of class
 })

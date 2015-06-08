@@ -4,9 +4,9 @@
 // var async = require('async')
 var _ = require('lodash')
 var gcloud = require('gcloud')
-	({
+var fs = require('fs')
 
-	})
+
 
 
 // Our Modules
@@ -15,7 +15,18 @@ var StorageManager = require('./storageManager')
 
 // Main Script
 /////////////////////////
-var LocalStorage = module.exports = StorageManager.Base.extend({
+var googleStorage = module.exports = StorageManager.Base.extend({
+
+init: function()
+{
+	this.storage = gcloud.storage({
+	projectId: projectId
+	})
+	this.bucket = storage.bucket('ingenuitystudios')
+}
+
+
+
 
 listFiles: function(path, callback)
 {
@@ -24,12 +35,13 @@ listFiles: function(path, callback)
 
 getFile: function(sourcePath, destinationPath, callback)
 {
-	// download a file
+	bucket
 },
 
 addFile: function(file, path, callback)
 {
-	// store a file
+	fs.createReadStream(sourcePath).pipe(bucket.file(destinationPath).createWriteStream())
+	callback()
 },
 
 getFileUrl: function(info, options, callback)
@@ -38,6 +50,35 @@ getFileUrl: function(info, options, callback)
 	// use info (ex id or name) to build a file path
 
 },
+
+
+
+deleteFile : function(file, callback)
+{
+	//delete a file
+},
+
+
+
+isFile: function(file, callback)
+{
+	// Check whether file exists
+},
+
+listDirs: function(path, callback)
+{
+	//List all directories in a certain path
+},
+
+makeDir: function(path, callback)
+{
+	//Creates a new directory in the specified location
+},
+
+removeDir: function(path, callback)
+{
+	//Removes a directory and all its contents
+}
 
 // end of class
 })
