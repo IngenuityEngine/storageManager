@@ -47,6 +47,20 @@ Base: Class.extend({
 
 	},
 
+	isFile: function (path, callback)
+	{
+
+		// Checks whether there is a file at path
+
+	}
+
+	//ListDirs
+
+	//TODO
+	//removeFile
+
+	//removeDirectory
+
 // end of class
 }),
 

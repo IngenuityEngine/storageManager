@@ -25,13 +25,15 @@ start: function(options, callback)
 	//with accessKeyId, secretAccessKey and region
 	//fields corresponding to S3's credentials.
 	AWS.config.loadFromPath('C:/dev/config.json')
-	var AWSClient = new AWS.S3()
+
+	this.AWSConnection = new AWS.S3()
 	var awsOptions =
 	{
-		s3Client: AWSClient
+		s3Client: this.AWSConnection
 	}
 	this.client = s3.createClient(awsOptions)
 	this.bucket = s3Config.bucket
+	callback()
 },
 
 listFiles: function(path, callback)
@@ -44,6 +46,8 @@ listFiles: function(path, callback)
 		recursive:true
 	})
 
+	var results = undefined
+
 	fileList.on('error', function(err)
 	{
 		console.log("Error listing files")
@@ -52,16 +56,16 @@ listFiles: function(path, callback)
 	.on('end', function()
 	{
 		console.log("Done!")
+		callback(null, results)
 	})
 	.on('data', function(data)
 	{
-		console.log("data",data)
+		//console.log("data",data)
+		if (results)
+			results += data.Contents
+		else
+			results = data.Contents
 	})
-	/*.on('progress', function()
-	{
-		console.log("progress", fileList.progressAmount, fileList.progressTotal)
-	}) */
-
 },
 
 getFile: function(sourcePath, destinationPath, callback)
@@ -80,18 +84,11 @@ getFile: function(sourcePath, destinationPath, callback)
 	var downloader = this.client.downloadFile(params)
 	.on('error', function(err)
 	{
-		console.log("an error occurred while downloading the file")
 		callback(err)
 	})
-	/*.on('progress', function()
-	{
-		console.log("progress", downloader.progressAmount, downloader.progressTotal);
-	}) */
 	.on('end', function() {
-		console.log("done downloading")
+		callback()
 	})
-
-	callback()
 },
 
 addFile: function(file, path, callback)
@@ -112,13 +109,13 @@ addFile: function(file, path, callback)
 	.on('error', function(err)
 	{
 		console.error("An error occurred uploading the file")
-		callback(err)
 	})
 	.on('end', function()
 	{
 		console.log("done uploading")
 	})
-	callback()
+		callback()
+
 },
 
 getFileUrl: function(info, options, callback)
