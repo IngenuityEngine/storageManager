@@ -23,8 +23,7 @@ var googleStorage = module.exports = StorageManager.Base.extend({
 start: function(options, callback)
 {
 	this.storage = gcloud.storage()
-	this.bucket = storage.bucket('blah blah')
-	console.log(this.bucket, " is currently the bucket")
+	this.bucket = this.storage.bucket('blah blah')
 	callback()
 },
 

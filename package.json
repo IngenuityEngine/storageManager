@@ -12,10 +12,11 @@
   },
   "dependencies": {
     "async": "^0.8.0",
-    "aws-sdk":"*",
+    "aws-sdk": "*",
     "expect.js": "^0.3.1",
     "express": "^4.2.0",
     "express-session": "^1.1.0",
+    "gcloud": "^0.15.0",
     "lodash": "^2.4.1",
     "mkdirp": "^0.5.0",
     "mocha": "^1.18.2",
