@@ -59,7 +59,6 @@ listFiles: function(path, callback)
 	})
 	.on('data', function(data)
 	{
-		//console.log("data",data)
 		if (results)
 			results += data.Contents
 		else
@@ -83,6 +82,7 @@ getFile: function(sourcePath, destinationPath, callback)
 	var downloader = this.client.downloadFile(params)
 	.on('error', function(err)
 	{
+		console.log("oh dear we have an error")
 		callback(err)
 	})
 	.on('end', function() {
@@ -123,11 +123,9 @@ deleteFile: function(file, callback)
 		Delete:
 		{
 			Objects:
-			[
-				{
+			[{
 					Key: file
-				}
-			]
+			}]
 		}
 	}
 

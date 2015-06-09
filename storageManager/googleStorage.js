@@ -83,4 +83,4 @@ removeDir: function(path, callback)
 // end of class
 })
 
-StorageManager.addPlugin('local', LocalStorage)
+StorageManager.addPlugin('google', googleStorage)

@@ -16,80 +16,74 @@ var config = require('c:/temp/config.js')
 describe('storageManager: s3Storage', function()
 {
 
-it('should load', function(done)
-{
-	var s3Storage = storageManager.start('s3', config.s3, done)
-})
-
-it('should add files', function(done)
-{
-	var s3Storage = storageManager.start('s3', config.s3, function(){})
-	s3Storage.addFile("woo.txt", "test/woo.txt", done)
-})
-
-it('should list files', function(done)
-{
-	var s3Storage = storageManager.start('s3', config.s3, function(){})
-	s3Storage.listFiles("", function(err, data)
+	it('should load', function(done)
 	{
-		if (err)
+		var s3Storage = storageManager.start('s3', config.s3, done)
+	})
+
+	it('should add files', function(done)
+	{
+		var s3Storage = storageManager.start('s3', config.s3, function(){})
+		s3Storage.addFile("woo.txt", "test/woo.txt", done)
+	})
+
+	it('should list files', function(done)
+	{
+		var s3Storage = storageManager.start('s3', config.s3, function(){})
+		s3Storage.listFiles("", function(err, data)
 		{
-			done(err)
-		}
-		else
-		{
-			var keys = _.map(data, function(entry) {return entry.Key})
-			_(keys).forEach(function (x)
+			if (err)
 			{
-				console.log(x)
-				console.log(_.includes(['woo.txt', 'another folder', x]))
-				//expect(_.includes(['woo.txt', 'another folder/'], x)).to.be(true)
-			})
-		}
+				done(err)
+			}
+			else
+			{
+				var keys = _.map(data, function(entry){return entry.Key})
+				_(keys).forEach(function (x)
+				{
+					expect(_.contains(['woo.txt', 'another folder/'], x)).to.be(true)
+				})
+				done()
+			}
+		})
 	})
-})
 
-it('should download a file', function(done)
-{
-	var s3Storage = storageManager.start('s3', config.s3, function(){})
-	s3Storage.getFile("woo.txt", "C:/Downloads/woo.txt", done)
-})
-
-it('should give back a URL', function(done)
-{
-	var s3Storage = storageManager.start('s3', config.s3, function(){})
-	s3Storage.getFileUrl("woo.txt", function(err, url)
+	it('should download a file', function(done)
 	{
-		if (err)
-			console.log( ' Is this the error ',  err)
-		else
-			expect(url).to.equal("http://ingenuitystudios.s3.amazonaws.com/woo.txt")
+		var s3Storage = storageManager.start('s3', config.s3, function(){})
+		s3Storage.getFile("woo.txt", "C:/Downloads/woo.txt", done)
 	})
-})
 
-
-
-it('should throw an error downloading file', function(done)
-{
-	var s3Storage = storageManager.start('s3', config.s3, function(){})
-	s3Storage.getFile("just_a_text.txt", "C:/Downloads/just_a_text.txt", function(err, data)
+	it('should give back a URL', function(done)
 	{
-		console.log("Errror ", err)
-		expect(err).to.be.an.instanceof(Error)
-		done()
+		var s3Storage = storageManager.start('s3', config.s3, function(){})
+		s3Storage.getFileUrl("woo.txt", function(err, url)
+		{
+			if (err)
+				{
+					done(err)
+				}
+			else
+				{
+					expect(url).to.equal("http://ingenuitystudios.s3.amazonaws.com/woo.txt")
+					done()
+				}
+		})
 	})
 
-})
+
+
+	it('should throw an error downloading file', function(done)
+	{
+		var s3Storage = storageManager.start('s3', config.s3, function(){})
+		s3Storage.getFile("just_a_text.txt", "C:/Downloads/just_a_text.txt", function(err, data)
+		{
+			console.log("Errror ", err)
+			//expect(err).to.be.an.instanceof(Error)
+			done(err)
+		})
+	})
 
 
 // end of test suite
 })
-
-var s3Storage = storageManager.start('s3', config.s3, function(){})
-s3Storage.getFile("just_a_text.txt", 'C:/Downloads/just_a_text.txt',function(err, data)
-{
-	if (err)
-		console.log(err)
-	else
-		console.log(data)
-} )
