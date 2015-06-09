@@ -60,7 +60,7 @@ getFile: function(sourcePath, destinationPath, callback)
 
 addFile: function(sourcePath, destinationPath, callback)
 {
-	var options = 
+	var options =
 	{
 		destination: destinationPath,
 		resumable: true,
@@ -107,7 +107,7 @@ deleteFile : function(file, callback)
 isFile: function(file, callback)
 {
 	var fileToGet = this.bucket.file(file)
-	console.warn(fileToGet, "is this anything") 
+	console.warn(fileToGet, "is this anything")
 	callback(null, true)
 },
 
