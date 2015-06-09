@@ -106,7 +106,9 @@ deleteFile : function(file, callback)
 
 isFile: function(file, callback)
 {
-	// Check whether file exists
+	var fileToGet = this.bucket.file(file)
+	console.warn(fileToGet, "is this anything") 
+	callback(null, true)
 },
 
 listDirs: function(path, callback)

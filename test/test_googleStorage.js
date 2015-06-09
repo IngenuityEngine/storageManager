@@ -69,7 +69,14 @@ describe('storageManger: googleStorage', function()
 				}
 		})
 	}) 
+	
+	it('should give us info if a file exists', function(done)
+	{
+		var googleStorage = storageManager.start('google','huh', function(){})
+		console.log("Hows that all going")
+		googleStorage.getFile('blah di blah.txt', '/blah di blah.txt', done)
 
+	})
 
 
 // end of test suite
