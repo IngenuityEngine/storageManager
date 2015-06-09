@@ -23,7 +23,7 @@ var googleStorage = module.exports = StorageManager.Base.extend({
 start: function(options, callback)
 {
 	this.storage = gcloud.storage()
-	this.bucket = this.storage.bucket('blah blah')
+	this.bucket = this.storage.bucket('test')
 	callback()
 },
 
@@ -42,7 +42,7 @@ getFile: function(sourcePath, destinationPath, callback)
 
 addFile: function(file, path, callback)
 {
-	fs.createReadStream(sourcePath).pipe(bucket.file(destinationPath).createWriteStream())
+	fs.createReadStream(sourcePath).pipe(this.bucket.file(destinationPath).createWriteStream())
 	callback()
 },
 
