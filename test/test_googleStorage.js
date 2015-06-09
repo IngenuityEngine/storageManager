@@ -7,7 +7,7 @@ var expect = require('expect.js')
 /////////////////////////
 var storageManger = require('../')
 
-var config = require('c:/temp/config.js')
+//var config = require('c:/temp/config.js')
 
 
 // Tests
@@ -17,7 +17,7 @@ describe('storageManger: localStorage', function()
 
 it('should load', function(done)
 {
-	var googleStorage = storageManger.init('google', config.google, done)
+	var googleStorage = storageManger.init('google', "lala", done)
 })
 
 
