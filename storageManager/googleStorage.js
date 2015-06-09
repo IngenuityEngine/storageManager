@@ -3,7 +3,10 @@
 /////////////////////////
 // var async = require('async')
 var _ = require('lodash')
-var gcloud = require('gcloud')
+var gcloud = require('gcloud')({
+	projectId: 'ingenuitystudios',
+	keyFilename: '~/gConfig.json'
+})
 var fs = require('fs')
 
 
@@ -17,12 +20,12 @@ var StorageManager = require('./storageManager')
 /////////////////////////
 var googleStorage = module.exports = StorageManager.Base.extend({
 
-init: function()
+start: function(options, callback)
 {
-	this.storage = gcloud.storage({
-	projectId: projectId
-	})
-	this.bucket = storage.bucket('ingenuitystudios')
+	this.storage = gcloud.storage()
+	this.bucket = storage.bucket('blah blah')
+	console.log(this.bucket, " is currently the bucket")
+	callback()
 }
 
 

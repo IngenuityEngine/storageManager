@@ -17,7 +17,7 @@ describe('storageManger: localStorage', function()
 
 it('should load', function(done)
 {
-	var googleStorage = storageManger.init('google', config.google,
+	var googleStorage = storageManger.init('google', config.google, done)
 })
 
 
