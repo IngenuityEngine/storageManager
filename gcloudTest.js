@@ -1,1 +1,0 @@
-var gcloud = require('gcloud')

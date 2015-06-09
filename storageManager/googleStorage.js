@@ -5,7 +5,7 @@
 var _ = require('lodash')
 var gcloud = require('gcloud')({
 	projectId: 'ingenuitystudios',
-	keyFilename: '~/gConfig.json'
+	keyFilename: '/tmp/gConfig.json'
 })
 var fs = require('fs')
 
@@ -24,6 +24,12 @@ start: function(options, callback)
 {
 	this.storage = gcloud.storage()
 	this.bucket = this.storage.bucket('test')
+	this.storage.getBuckets(function(err, buckets, nextQuery)
+			{
+				console.log("found buckets",buckets)
+				console.log(err, "were errors")
+			})
+
 	callback()
 },
 
