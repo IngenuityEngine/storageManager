@@ -32,7 +32,7 @@ start: function(options, callback)
 		s3Client: this.AWSConnection
 	}
 	this.client = s3.createClient(awsOptions)
-	this.bucket = :ws3Config.bucket
+	this.bucket = s3Config.bucket
 	callback()
 },
 
