@@ -47,7 +47,15 @@ listFiles: function(path, callback)
 
 getFile: function(sourcePath, destinationPath, callback)
 {
-	bucket
+	var fileToDownload = this.bucket.file(sourcePath)
+	fileToDownload.download(
+		{
+			destination: destinationPath
+		},
+	       	function(err)
+		{
+			callback(err)
+		})
 },
 
 addFile: function(sourcePath, destinationPath, callback)
@@ -75,8 +83,16 @@ addFile: function(sourcePath, destinationPath, callback)
 getFileUrl: function(file, callback)
 {
 
-	// use info (ex id or name) to build a file path
-
+	var fileToGet = this.bucket.file(file)
+	fileToGet.getSignedUrl(
+			{
+				action: 'read',
+				expires: Math.round(Date.now() / 1000) + (60*60*24*14), //2 weeks
+			},
+			function(err, url)
+			{
+				callback(err, url)
+			})
 },
 
 

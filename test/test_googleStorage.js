@@ -33,7 +33,7 @@ describe('storageManger: googleStorage', function()
 			}
 			else
 			{
-				console.log(data)
+			//	console.log(data)
 				done(null, data)
 			}
 		})
@@ -50,12 +50,12 @@ describe('storageManger: googleStorage', function()
 	it('should download a file', function(done)
 	{
 		var googleStorage = storageManager.start('google', 'whatev', function(){})
-		googleStorage.getFile("woo.txt", "/home/woo.txt", done)
+		googleStorage.getFile("woo.txt", "/otherwoo.txt", done)
 	})
 
-/*	it('should give back a URL', function(done)
+	it('should give back a URL', function(done)
 	{
-		var s3Storage = storageManager.start('s3', config.s3, function(){})
+		var s3Storage = storageManager.start('google', 'dont care', function(){})
 		s3Storage.getFileUrl("woo.txt", function(err, url)
 		{
 			if (err)
@@ -64,11 +64,11 @@ describe('storageManger: googleStorage', function()
 				}
 			else
 				{
-					expect(url).to.equal("http://ingenuitystudios.s3.amazonaws.com/woo.txt")
+					console.log(url)
 					done()
 				}
 		})
-	}) */
+	}) 
 
 
 
