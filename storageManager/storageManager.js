@@ -87,6 +87,7 @@ plugins: {},
 
 addPlugin: function(pluginName, plugin)
 {
+	console.log(pluginName, "gets called to become plugin")
 	StorageManager.plugins[pluginName] = plugin
 }
 

@@ -26,7 +26,7 @@ start: function(options, callback)
 	this.bucket = storage.bucket('blah blah')
 	console.log(this.bucket, " is currently the bucket")
 	callback()
-}
+},
 
 
 
