@@ -27,7 +27,7 @@ describe('storageManager: s3Storage', function()
 	it('should add files', function(done)
 	{
 		var s3Storage = storageManager.start('s3', config.s3, function(){})
-		s3Storage.addFile("woo.txt", "test/woo.txt", done)
+		s3Storage.addFile("woo.txt", "woo.txt", done)
 	})
 
 	it('should list files', function(done)
@@ -44,7 +44,7 @@ describe('storageManager: s3Storage', function()
 				var keys = _.map(data, function(entry){return entry.Key})
 				_(keys).forEach(function (x)
 				{
-					expect(_.contains(['woo.txt', 'another folder/'], x)).to.be(true)
+					expect(_.contains(['woo.txt', 'another folder/', 'test/woo.txt'], x)).to.be(true)
 				})
 				done()
 			}
@@ -95,7 +95,24 @@ describe('storageManager: s3Storage', function()
 		})
 	})
 
-	it('should list directories', function(done)
+	it('should tell us a file doesn\'t exist', function(done)
+	{
+		var s3Storage = storageManager.start('s3', config.s3, function(){})
+		s3Storage.isFile('lolz.txt', function (err, fileExist)
+		{
+			if (err)
+			{
+				done(err)
+			}
+			else
+			{
+				expect(fileExist).to.be(false)
+				done()
+			}
+		})
+	})
+
+/*	it('should list directories', function(done)
 	{
 		var s3Storage = storageManager.start('s3', config.s3, function(){})
 		s3Storage.listDirs("", function(err, dirs)
@@ -103,7 +120,7 @@ describe('storageManager: s3Storage', function()
 			expect(dirs[0].Key).to.be.equal("another folder/")
 			done()
 		})
-	})
+	}) */
 
 
 })
