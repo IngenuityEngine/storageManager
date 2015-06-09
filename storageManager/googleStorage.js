@@ -4,8 +4,8 @@
 // var async = require('async')
 var _ = require('lodash')
 var gcloud = require('gcloud')({
-	projectId: 'ingenuitystudios',
-	keyFilename: '/tmp/gConfig.json'
+	projectId: 'metal-sky-96603',
+	keyFilename: '/tmp/otherGoogleConfig.json'
 })
 var fs = require('fs')
 
@@ -24,11 +24,11 @@ start: function(options, callback)
 {
 	this.storage = gcloud.storage()
 	this.bucket = this.storage.createBucket('test')
-	this.bucket = this.storage.bucket('othertest')
+//	this.bucket = this.storage.bucket('othertest')
 	this.storage.getBuckets(function(err, buckets, nextQuery)
 			{
 				console.log("found buckets",buckets)
-				console.log(err, "were errors")
+				console.log(err.stack)
 			})
 
 	callback()
