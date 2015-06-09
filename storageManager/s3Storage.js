@@ -32,7 +32,7 @@ start: function(options, callback)
 		s3Client: this.AWSConnection
 	}
 	this.client = s3.createClient(awsOptions)
-	this.bucket = s3Config.bucket
+	this.bucket = :ws3Config.bucket
 	callback()
 },
 
@@ -89,7 +89,7 @@ getFile: function(sourcePath, destinationPath, callback)
 	})
 },
 
-addFile: function(file, path, callback)
+addFile: function(sourcePath, destinationPath, callback)
 {
 	var params =
 	{
@@ -159,7 +159,7 @@ isFile: function(file, callback)
 },
 
 
-getFileUrl: function(info, callback)
+getFileUrl: function(file, callback)
 {
 	var tmpBucket = this.bucket
 	this.isFile(info, function(err, fileExists){

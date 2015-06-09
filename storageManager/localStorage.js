@@ -22,12 +22,12 @@ getFile: function(sourcePath, destinationPath, callback)
 	// download a file
 },
 
-addFile: function(file, path, callback)
+addFile: function(sourcePath, destinationPath, callback)
 {
 	// store a file
 },
 
-getFileUrl: function(info, options, callback)
+getFileUrl: function(file, callback)
 {
 
 	// use info (ex id or name) to build a file path

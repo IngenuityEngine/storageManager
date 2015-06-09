@@ -43,13 +43,13 @@ getFile: function(sourcePath, destinationPath, callback)
 	bucket
 },
 
-addFile: function(file, path, callback)
+addFile: function(sourcePath, destinationPath, callback)
 {
 	fs.createReadStream(sourcePath).pipe(this.bucket.file(destinationPath).createWriteStream())
 	callback()
 },
 
-getFileUrl: function(info, options, callback)
+getFileUrl: function(file, callback)
 {
 
 	// use info (ex id or name) to build a file path

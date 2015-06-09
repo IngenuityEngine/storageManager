@@ -35,7 +35,7 @@ Base: Class.extend({
 		// download a file
 	},
 
-	addFile: function(file, path, callback)
+	addFile: function(sourcePath, destinationPath, callback)
 	{
 		// store a file
 	},
@@ -45,7 +45,7 @@ Base: Class.extend({
 		//delete a file
 	},
 
-	getFileUrl: function(info, callback)
+	getFileUrl: function(file, callback)
 	{
 		// use info (ex id or name) to build a file path
 	},
