@@ -46,7 +46,7 @@ listFiles: function(path, callback)
 		recursive:true
 	})
 
-	var results = undefined
+	var results
 
 	fileList.on('error', function(err)
 	{
@@ -78,7 +78,7 @@ getFile: function(sourcePath, destinationPath, callback)
 		},
 	}
 
-	var downloader = this.client.downloadFile(params)
+	this.client.downloadFile(params)
 	.on('error', function(err)
 	{
 		callback(err)
@@ -93,11 +93,11 @@ addFile: function(sourcePath, destinationPath, callback)
 {
 	var params =
 	{
-		localFile: path,
+		localFile: sourcePath,
 		s3Params:
 			{
 				Bucket: this.bucket,
-				Key: file
+				Key: destinationPath
 			}
 	}
 
@@ -144,12 +144,12 @@ deleteFile: function(file, callback)
 // intervals to counter this potential mistake
 isFile: function(file, callback)
 {
-	params =
+	var params =
 	{
 		Bucket: this.bucket,
 		Key: file
 	}
-	this.AWSConnection.headObject(params, function(err, data)
+	this.AWSConnection.headObject(params, function(err)
 	{
 		if (err)
 			callback(null, false)
@@ -162,13 +162,13 @@ isFile: function(file, callback)
 getFileUrl: function(file, callback)
 {
 	var tmpBucket = this.bucket
-	this.isFile(info, function(err, fileExists){
+	this.isFile(file, function(err, fileExists){
 		if (err)
 			return callback(err)
 		if (fileExists)
-			callback(null, s3.getPublicUrlHttp(tmpBucket, info))
+			callback(null, s3.getPublicUrlHttp(tmpBucket, file))
 		else
-			callback(new Error(info," does not exist!"))
+			callback(new Error(file," does not exist!"))
 	})
 	//callback(null, s3.getPublicUrlHttp(this.bucket, info))
 },
