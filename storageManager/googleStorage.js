@@ -27,7 +27,8 @@ var googleStorage = module.exports = StorageManager.Base.extend({
 start: function(options, callback)
 {
 	this.storage = gcloud.storage()
-	this.bucket = this.storage.bucket('config.bucket')
+	this.bucket = this.storage.bucket(config.bucket)
+	callback()
 },
 
 
@@ -35,7 +36,13 @@ start: function(options, callback)
 
 listFiles: function(path, callback)
 {
-	// download a file
+	this.bucket.getFiles(function(err, files, nextQuery, apiResponse)
+			{
+				if (err)
+					callback(err)
+				else
+					callback(null, files)
+			})
 },
 
 getFile: function(sourcePath, destinationPath, callback)
@@ -45,8 +52,24 @@ getFile: function(sourcePath, destinationPath, callback)
 
 addFile: function(sourcePath, destinationPath, callback)
 {
-	fs.createReadStream(sourcePath).pipe(this.bucket.file(destinationPath).createWriteStream())
-	callback()
+	var options = 
+	{
+		destination: destinationPath,
+		resumable: true,
+		validation: 'crc32c',
+	}
+	this.bucket.upload(sourcePath, options, function(err, file)
+			{
+				if (err)
+				{
+					console.log(err.stack)
+					callback(err)
+				}
+				else
+				{
+					callback()
+				}
+			})
 },
 
 getFileUrl: function(file, callback)
