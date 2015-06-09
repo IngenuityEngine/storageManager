@@ -26,17 +26,8 @@ var googleStorage = module.exports = StorageManager.Base.extend({
 
 start: function(options, callback)
 {
-	console.log("storage", gcloud)
 	this.storage = gcloud.storage()
 	this.bucket = this.storage.bucket('config.bucket')
-	console.log("get here")
-	this.storage.getBuckets(function(err, buckets, nextQuery)
-			{
-				console.log("found buckets",buckets)
-				console.log(err.stack)
-				callback()
-			})
-
 },
 
 

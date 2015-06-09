@@ -20,6 +20,13 @@ it('should load', function(done)
 	var googleStorage = storageManager.start('google', "lala", done)
 })
 
+it('should add a file', function(done)
+	{
+		var googleStorage = storageManager.start('google', 'lala', function(){})
+		googleStorage.addFile('woo.txt', 'woo.txt', done)
+
+	}
+  )
 
 
 
