@@ -18,7 +18,7 @@ describe('storageManger: googleStorage', function()
 it('should load', function(done)
 {
 	console.log(storageManager)
-	var googleStorage = storageManger.start('google', "lala", done)
+	var googleStorage = storageManager.start('google', "lala", done)
 })
 
 
