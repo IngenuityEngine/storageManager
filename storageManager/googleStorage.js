@@ -9,7 +9,7 @@ var gcloud = require('gcloud')({
 })
 var fs = require('fs')
 //bucket name
-var config = 
+var config =
 {
 	bucket: 'just_a_test'
 }
