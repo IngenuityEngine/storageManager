@@ -20,10 +20,10 @@ it('should load', function(done)
 {
 	console.log(storageManager)
 	var googleStorage = storageManger.start('google', "lala", done)
-}) */
+})
 
 
 
 
 // end of test suite
-})
+}) */
