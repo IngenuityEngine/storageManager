@@ -43,7 +43,7 @@ describe('storageManger: googleStorage', function()
 	it('should add a file', function(done)
 	{
 		var googleStorage = storageManager.start('google', 'lala', function(){})
-		googleStorage.addFile('/woo.txt', 'woo.txt', done)
+		googleStorage.addFile('/woo.txt', 'subFolderTest/secondwoo.txt', done)
 
 	})
 
