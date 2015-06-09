@@ -107,8 +107,18 @@ deleteFile : function(file, callback)
 isFile: function(file, callback)
 {
 	var fileToGet = this.bucket.file(file)
+<<<<<<< HEAD
 	console.warn(fileToGet, "is this anything")
 	callback(null, true)
+=======
+	fileToGet.getMetadata(function(err, metaData, apiResponse)
+			{ 
+			 if (err)
+				 callback(null, false)
+			else
+				callback(null, true)
+			})
+>>>>>>> origin/master
 },
 
 listDirs: function(path, callback)

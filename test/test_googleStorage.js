@@ -14,7 +14,7 @@ var storageManager = require('../')
 /////////////////////////
 describe('storageManger: googleStorage', function()
 {
-	this.timeout(5000)
+	this.timeout(10000)
 
 	it('should load', function(done)
 	{
@@ -43,7 +43,7 @@ describe('storageManger: googleStorage', function()
 	it('should add a file', function(done)
 	{
 		var googleStorage = storageManager.start('google', 'lala', function(){})
-		googleStorage.addFile('/woo.txt', 'subFolderTest/secondwoo.txt', done)
+		googleStorage.addFile('/woo.txt', 'thirdorsecondwoo.txt', done)
 
 	})
 
@@ -70,14 +70,31 @@ describe('storageManger: googleStorage', function()
 		})
 	}) 
 	
-	it('should give us info if a file exists', function(done)
+/*	it('should give us info if a file doesn\'t exist', function(done)
 	{
 		var googleStorage = storageManager.start('google','huh', function(){})
 		console.log("Hows that all going")
-		googleStorage.getFile('blah di blah.txt', '/blah di blah.txt', done)
+		googleStorage.isFile('blah di blah.txt', function(err, fileBool)
+				{
+					expect(fileBool).to.be(false)
+					console.log(fileBool)
+					done(err)
+				})
 
 	})
 
 
+	it('should give us info if a file exists', function(done)
+	{
+		var googleStorage = storageManager.start('google','huh', function(){})
+		console.log("Hows that all going")
+		googleStorage.isFile('woo.txt', function(err, fileBool)
+				{
+					expect(fileBool).to.be(true)
+					console.log(fileBool)
+					done(err)
+				})
+
+	}) */ 
 // end of test suite
 })

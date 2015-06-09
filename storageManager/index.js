@@ -1,5 +1,5 @@
 
 require('./localStorage')
 require('./s3Storage')
-//require('./googleStorage')
+require('./googleStorage')
 module.exports = require('./storageManager')
