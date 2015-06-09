@@ -23,7 +23,8 @@ var googleStorage = module.exports = StorageManager.Base.extend({
 start: function(options, callback)
 {
 	this.storage = gcloud.storage()
-	this.bucket = this.storage.bucket('test')
+	this.bucket = this.storage.createBucket('test')
+	this.bucket = this.storage.bucket('othertest')
 	this.storage.getBuckets(function(err, buckets, nextQuery)
 			{
 				console.log("found buckets",buckets)
