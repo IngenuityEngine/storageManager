@@ -68,6 +68,7 @@ addFile: function(sourcePath, destinationPath, callback)
 	}
 	this.bucket.upload(sourcePath, options, function(err, file)
 			{
+				console.log("In uploading clalback")
 				if (err)
 				{
 					console.log(err.stack)
@@ -75,9 +76,11 @@ addFile: function(sourcePath, destinationPath, callback)
 				}
 				else
 				{
+					console.log("We got here!")
 					callback()
 				}
 			})
+	console.log("Still working?")
 },
 
 getFileUrl: function(file, callback)
