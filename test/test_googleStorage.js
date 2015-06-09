@@ -14,7 +14,7 @@ var storageManager = require('../')
 /////////////////////////
 describe('storageManger: googleStorage', function()
 {
-	this.timeout(10000)
+	this.timeout(5000)
 
 	it('should load', function(done)
 	{
@@ -68,8 +68,8 @@ describe('storageManger: googleStorage', function()
 					done()
 				}
 		})
-	}) 
-	
+	})
+
 /*	it('should give us info if a file doesn\'t exist', function(done)
 	{
 		var googleStorage = storageManager.start('google','huh', function(){})
@@ -95,6 +95,6 @@ describe('storageManger: googleStorage', function()
 					done(err)
 				})
 
-	}) */ 
+	}) */
 // end of test suite
 })
