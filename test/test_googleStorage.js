@@ -5,19 +5,20 @@ var expect = require('expect.js')
 
 // Our Modules
 /////////////////////////
-var storageManger = require('../')
+var storageManager = require('../')
 
 //var config = require('c:/temp/config.js')
 
 
 // Tests
 /////////////////////////
-describe('storageManger: localStorage', function()
+describe('storageManger: googleStorage', function()
 {
 
 it('should load', function(done)
 {
-	var googleStorage = storageManger.init('google', "lala", done)
+	console.log(storageManager)
+	var googleStorage = storageManger.start('google', "lala", done)
 })
 
 
