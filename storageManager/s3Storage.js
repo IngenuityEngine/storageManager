@@ -71,7 +71,6 @@ getFile: function(sourcePath, destinationPath, callback)
 	var params =
 	{
 		localFile: destinationPath,
-
 		s3Params:
 		{
 			Bucket: this.bucket,
@@ -82,10 +81,10 @@ getFile: function(sourcePath, destinationPath, callback)
 	var downloader = this.client.downloadFile(params)
 	.on('error', function(err)
 	{
-		console.log("oh dear we have an error")
 		callback(err)
 	})
-	.on('end', function() {
+	.on('end', function()
+	{
 		callback()
 	})
 },
@@ -110,7 +109,6 @@ addFile: function(file, path, callback)
 	})
 	.on('end', function()
 	{
-		console.log("done uploading")
 		callback()
 	})
 },
@@ -142,20 +140,51 @@ deleteFile: function(file, callback)
 	})
 },
 
+//Note: this method may timeout and return false; can be called several times in approx five-second
+// intervals to counter this potential mistake
 isFile: function(file, callback)
 {
-
+	params =
+	{
+		Bucket: this.bucket,
+		Key: file
+	}
+	this.AWSConnection.headObject(params, function(err, data)
+	{
+		if (err)
+			callback(null, false)
+		else
+			callback(null, true)
+	})
 },
+
 
 getFileUrl: function(info, callback)
 {
-	console.log(s3.getPublicUrlHttp(this.bucket,info))
-	callback(null, s3.getPublicUrlHttp(this.bucket, info))
+	var tmpBucket = this.bucket
+	this.isFile(info, function(err, fileExists){
+		if (err)
+			return callback(err)
+		if (fileExists)
+			callback(null, s3.getPublicUrlHttp(tmpBucket, info))
+		else
+			callback(new Error(info," does not exist!"))
+	})
+	//callback(null, s3.getPublicUrlHttp(this.bucket, info))
 },
 
 listDirs: function(path, callback)
 {
-
+	this.listFiles(path, function(err, data)
+	{
+		if (err)
+			return callback(err)
+		var directories = _.filter(data, function(entry)
+		{
+			return (entry.Key.slice(-1) === '/')
+		})
+		callback(null, directories)
+	})
 },
 
 makeDir: function(path, callback)

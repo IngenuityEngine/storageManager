@@ -11,10 +11,13 @@ var storageManager = require('../')
 
 var config = require('c:/temp/config.js')
 
+
 // Tests
 /////////////////////////
 describe('storageManager: s3Storage', function()
 {
+
+	this.timeout(5000)
 
 	it('should load', function(done)
 	{
@@ -71,19 +74,39 @@ describe('storageManager: s3Storage', function()
 		})
 	})
 
-
-
-	it('should throw an error downloading file', function(done)
+	it('should throw a download error if file doesn\'t exist', function(done)
 	{
 		var s3Storage = storageManager.start('s3', config.s3, function(){})
-		s3Storage.getFile("just_a_text.txt", "C:/Downloads/just_a_text.txt", function(err, data)
+		s3Storage.getFile('hello.txt', 'C:/dev/hello.txt', function(err, data)
 		{
-			console.log("Errror ", err)
-			//expect(err).to.be.an.instanceof(Error)
-			done(err)
+			expect(err).to.exist
+			done()
 		})
 	})
 
 
-// end of test suite
+	it('should throw a URL error', function(done)
+	{
+		var s3Storage = storageManager.start('s3', config.s3, function(){})
+		s3Storage.getFileUrl("elephant.txt", function(err, url)
+		{
+			expect(err).to.exist
+			done()
+		})
+	})
+
+	it('should list directories', function(done)
+	{
+		var s3Storage = storageManager.start('s3', config.s3, function(){})
+		s3Storage.listDirs("", function(err, dirs)
+		{
+			expect(dirs[0].Key).to.be.equal("another folder/")
+			done()
+		})
+	})
+
+
 })
+
+// end of test suite
+
