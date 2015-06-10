@@ -2,7 +2,7 @@
 // Vendor Modules
 /////////////////////////
 var expect = require('expect.js')
-
+var _ = require('lodash')
 // Our Modules
 /////////////////////////
 var storageManager = require('../')
@@ -33,7 +33,10 @@ describe('storageManger: googleStorage', function()
 			}
 			else
 			{
-				console.log(JSON.stringify(data))
+				_.forEach(data, function(toPrint)
+						{
+							console.log(toPrint)
+						})
 				done(null, data)
 			}
 		})

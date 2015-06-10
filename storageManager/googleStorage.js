@@ -54,7 +54,8 @@ listFiles: function(path, callback)
 							size: entry.metadata.size,
 							updated: entry.metadata.updated
 						}
-						fileData += data
+					//	console.log(data)
+						fileData.push(data)
 					})		
 					callback(null, fileData)
 				}		
