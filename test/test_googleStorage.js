@@ -70,7 +70,7 @@ describe('storageManger: googleStorage', function()
 		})
 	})
 
-/*	it('should give us info if a file doesn\'t exist', function(done)
+	it('should give us info if a file doesn\'t exist', function(done)
 	{
 		var googleStorage = storageManager.start('google','huh', function(){})
 		console.log("Hows that all going")
@@ -87,14 +87,12 @@ describe('storageManger: googleStorage', function()
 	it('should give us info if a file exists', function(done)
 	{
 		var googleStorage = storageManager.start('google','huh', function(){})
-		console.log("Hows that all going")
 		googleStorage.isFile('woo.txt', function(err, fileBool)
 				{
 					expect(fileBool).to.be(true)
-					console.log(fileBool)
 					done(err)
 				})
 
-	}) */
+	}) 
 // end of test suite
 })

@@ -63,12 +63,11 @@ addFile: function(sourcePath, destinationPath, callback)
 	var options =
 	{
 		destination: destinationPath,
-		resumable: true,
+	//	resumable: true,
 		validation: 'crc32c',
 	}
 	this.bucket.upload(sourcePath, options, function(err, file)
 			{
-				console.log("In uploading clalback")
 				if (err)
 				{
 					console.log(err.stack)
@@ -76,11 +75,9 @@ addFile: function(sourcePath, destinationPath, callback)
 				}
 				else
 				{
-					console.log("We got here!")
 					callback()
 				}
 			})
-	console.log("Still working?")
 },
 
 getFileUrl: function(file, callback)
@@ -107,13 +104,9 @@ deleteFile : function(file, callback)
 
 
 
-/*isFile: function(file, callback)
+isFile: function(file, callback)
 {
 	var fileToGet = this.bucket.file(file)
-
-	console.warn(fileToGet, "is this anything")
-	callback(null, true)
-
 	fileToGet.getMetadata(function(err, metaData, apiResponse)
 			{
 			 if (err)
@@ -121,7 +114,7 @@ deleteFile : function(file, callback)
 			else
 				callback(null, true)
 			})
-}, */
+},
 
 listDirs: function(path, callback)
 {
