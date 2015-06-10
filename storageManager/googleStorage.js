@@ -7,7 +7,6 @@ var gcloud = require('gcloud')({
 	projectId: 'metal-sky-96603',
 	keyFilename: '/tmp/otherGoogleConfig.json'
 })
-var fs = require('fs')
 //bucket name
 var config =
 {
@@ -44,24 +43,23 @@ listFiles: function(path, callback)
 				if (err)
 				{
 					callback(err)
-				}		
+				}
 				else
-				{	
+				{
 					var fileData=[]
 					_.forEach(files, function(entry)
 					{
-						var data = 
+						var data =
 						{
 							key: entry.metadata.name,
 							name: entry.metadata.name,
 							size: entry.metadata.size,
 							updated: entry.metadata.updated
 						}
-					//	console.log(data)
 						fileData.push(data)
-					})		
+					})
 					callback(null, fileData)
-				}		
+				}
 	})
 },
 

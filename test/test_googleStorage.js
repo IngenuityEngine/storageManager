@@ -33,13 +33,10 @@ describe('storageManger: googleStorage', function()
 			}
 			else
 			{
-<<<<<<< HEAD
-=======
 				_.forEach(data, function(toPrint)
 						{
 							console.log(toPrint)
 						})
->>>>>>> origin/master
 				done(null, data)
 			}
 		})

@@ -41,7 +41,8 @@ listFiles: function(path, callback)
 	var fileList = this.client.listObjects(
 	{
 		s3Params:{
-			Bucket : this.bucket
+			Bucket : this.bucket,
+			Prefix: path
 		},
 		recursive:true
 	})
@@ -104,7 +105,6 @@ addFile: function(sourcePath, destinationPath, callback)
 	this.client.uploadFile(params)
 	.on('error', function(err)
 	{
-		console.error("An error occurred uploading the file")
 		callback(err)
 	})
 	.on('end', function()
@@ -130,12 +130,10 @@ deleteFile: function(file, callback)
 	this.client.deleteObjects(params)
 	.on('error', function(err)
 	{
-		console.error("An error occurred deleting the file")
 		callback(err)
 	})
 	.on('end', function()
 	{
-		console.log("done uploading")
 		callback()
 	})
 },

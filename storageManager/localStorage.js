@@ -2,8 +2,8 @@
 // Vendor Modules
 /////////////////////////
 // var async = require('async')
-var _ = require('lodash')
-var fs = require('fs')
+// var _ = require('lodash')
+var fs = require('fs.extra')
 var path = require('path')
 
 // Our Modules
@@ -24,60 +24,21 @@ listFiles: function(filePath, callback)
 
 getFile: function(sourcePath, destinationPath, callback)
 {
-	var calledBack = false
 
-	var mkdirParent = function(dirPath, internalCall)
+	fs.mkdirp(path.parse(destinationPath).dir, function(err)
 	{
-		fs.mkdir(dirPath, 0777, function(error)
-		{
-			if (error && error.code === 'ENOENT')
-			{
-				mkdirParent(path.dirname(dirPath), internalCall)
-				mkdirParent(dirPath, internalCall)
-			}
-			internalCall && internalCall(error)
-		})
-	}
-
-	mkdirParent(path.parse(sourcePath).dir,
-	mkdirParent(path.parse(destinationPath).dir, function()
-	{
-		var read = fs.createReadStream(sourcePath,
-		{
-			flags: 'r'
-		})
-		read.on("error", function(err)
-		{
-			done(err)
-		})
-
-		var write = fs.createWriteStream(destinationPath,
-		{
-			flags: 'wx'
-		})
-		write.on("error", function(err)
-		{
-			console.log("An error is made!")
-			write.destroy()
-			done(err)
-		})
-		write.on("close", function(ex)
-		{
-			done()
-		})
-
-	read.pipe(write)
-	}))
-
-	function done(err)
-	{
-		if (!calledBack)
+		if (err)
 		{
 			callback(err)
-			calledBack = true
 		}
-	}
-
+		else
+		{
+			fs.copy(sourcePath, destinationPath, function(err)
+			{
+				callback(err)
+			})
+		}
+	})
 },
 
 addFile: function(sourcePath, destinationPath, callback)
