@@ -187,17 +187,6 @@ listDirs: function(path, callback)
 	})
 },
 
-makeDir: function(path, callback)
-{
-
-},
-
-removeDir: function(path, callback)
-{
-
-}
-
-
 // end of class
 })
 

@@ -25,7 +25,7 @@ Base: Class.extend({
 		callback()
 	},
 
-	listFiles: function(path, callback)
+	listFiles: function(filePath, callback)
 	{
 		// download a file
 	},
@@ -59,16 +59,6 @@ Base: Class.extend({
 	{
 		//List all directories in a certain path
 	},
-
-	makeDir: function(path, callback)
-	{
-		//Creates a new directory in the specified location
-	},
-
-	removeDir: function(path, callback)
-	{
-		//Removes a directory and all its contents
-	}
 
 // end of class
 }),

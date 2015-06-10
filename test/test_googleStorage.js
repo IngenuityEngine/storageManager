@@ -33,7 +33,6 @@ describe('storageManger: googleStorage', function()
 			}
 			else
 			{
-				console.log(JSON.stringify(data))
 				done(null, data)
 			}
 		})
@@ -91,6 +90,6 @@ describe('storageManger: googleStorage', function()
 					done(err)
 				})
 
-	}) 
+	})
 // end of test suite
 })
