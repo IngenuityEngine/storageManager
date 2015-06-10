@@ -33,7 +33,7 @@ describe('storageManger: googleStorage', function()
 			}
 			else
 			{
-				//console.log(data)
+				console.log(data)
 				done(null, data)
 			}
 		})
@@ -73,11 +73,9 @@ describe('storageManger: googleStorage', function()
 	it('should give us info if a file doesn\'t exist', function(done)
 	{
 		var googleStorage = storageManager.start('google','huh', function(){})
-		console.log("Hows that all going")
 		googleStorage.isFile('blah di blah.txt', function(err, fileBool)
 				{
 					expect(fileBool).to.be(false)
-					console.log(fileBool)
 					done(err)
 				})
 

@@ -41,7 +41,7 @@ listFiles: function(path, callback)
 				if (err)
 					callback(err)
 				else
-					callback(null, files)
+					callback(null, files[0].metadata)
 			})
 },
 
