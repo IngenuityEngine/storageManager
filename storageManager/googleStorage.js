@@ -67,7 +67,7 @@ addFile: function(sourcePath, destinationPath, callback)
 		validation: 'crc32c',
 	}
 	this.bucket.upload(sourcePath, options, function(err, file)
-			{
+	 	{
 				if (err)
 				{
 					console.log(err.stack)
