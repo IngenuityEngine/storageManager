@@ -7,7 +7,10 @@ var path = require('path')
 // Our Modules
 /////////////////////////
 var storageManager = require('../')
-var config = require('c:/temp/config.js')
+
+var describe = global.describe
+var before = global.before
+var it = global.it
 
 // Testing variables
 var testingPath = "testing"
@@ -29,7 +32,7 @@ describe('storageManager: s3Storage', function()
 
 	it('should load', function(done)
 	{
-		var testStorage = storageManager.start('s3', null, done)
+		storageManager.start('s3', null, done)
 	})
 
 	it('should list Files as being empty', function(done)
@@ -56,10 +59,10 @@ describe('storageManager: s3Storage', function()
 
 	it('should throw an error when specifying a nonexistent file to add', function(done)
 	{
-		s3Storage.addFile(path.resolve(__dirname,'nonexistentfile.txt'), 'testing/file3.txt', function(err, data)
+		s3Storage.addFile(path.resolve(__dirname,'nonexistentfile.txt'), 'testing/file3.txt', function(err)
 			{
-			expect(err).to.exist
-			done()
+				expect(err).to.exist
+				done()
 			})
 	})
 
@@ -89,7 +92,7 @@ describe('storageManager: s3Storage', function()
 	{
 		s3Storage.getFileUrl('testing/file1.txt', function(err, data)
 		{
-			console.log(data)
+			//console.log(data)
 			done()
 		})
 	})

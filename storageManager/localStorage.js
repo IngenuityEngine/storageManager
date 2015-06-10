@@ -2,7 +2,7 @@
 // Vendor Modules
 /////////////////////////
 // var async = require('async')
-// var _ = require('lodash')
+//var _ = require('lodash')
 var fs = require('fs.extra')
 var path = require('path')
 
@@ -58,11 +58,6 @@ deleteFile: function(file, callback)
 {
 	fs.unlink(file, callback)
 },
-
-isFile: function(file, callback)
-{
-
-}
 
 // end of class
 })

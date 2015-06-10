@@ -49,6 +49,11 @@ describe('storageManager: localStorage', function()
 		localStorage.addFile(path.resolve(__dirname, 'file3.txt'), 'testing/subFolder/file3.txt', done)))
 	})
 
+	it('should get files', function(done)
+	{
+		localStorage.getFile('testing/file1.txt', path.resolve(__dirname, 'downloadedfile1.txt'), done)
+	})
+
 	it('should throw an error when specifying a nonexistent file to add', function(done)
 	{
 		localStorage.addFile(path.resolve(__dirname,'nonexistentfile.txt'), 'testing/file3.txt', function(err, data)
@@ -71,11 +76,11 @@ describe('storageManager: localStorage', function()
 	{
 		localStorage.listFiles(testingPath, function(err, data)
 		{
-			console.log(data)
+			//console.log(data)
 		})
 		localStorage.listFiles(path.resolve(testingPath, 'subFolder'), function(err, data)
 		{
-			console.log(data)
+			//console.log(data)
 			done()
 		})
 	})

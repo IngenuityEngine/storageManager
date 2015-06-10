@@ -7,6 +7,10 @@ var path = require('path')
 // Our Modules
 /////////////////////////
 var storageManager = require('../')
+var describe = global.describe
+var before = global.before
+var it = global.it
+var after = global.after
 //var config = require('c:/temp/config.js')
 
 // Testing variables
@@ -20,8 +24,6 @@ describe('storageManager: googleStorage', function()
 
 	before(function()
 	{
-		//fs.mkdir('testing', function(){})
-		//testingPath = path.resolve('testing')
 		googleStorage = storageManager.start('google', null, function(){})
 		localPath = __dirname
 	})
@@ -29,7 +31,7 @@ describe('storageManager: googleStorage', function()
 
 	it('should load', function(done)
 	{
-		var testStorage = storageManager.start('google', null, done)
+		storageManager.start('google', null, done)
 	})
 
 	it('should list Files as being empty', function(done)
@@ -56,7 +58,7 @@ describe('storageManager: googleStorage', function()
 
 	it('should throw an error when specifying a nonexistent file to add', function(done)
 	{
-		googleStorage.addFile(path.resolve(__dirname,'nonexistentfile.txt'), 'testing/file3.txt', function(err, data)
+		googleStorage.addFile(path.resolve(__dirname,'nonexistentfile.txt'), 'testing/file3.txt', function(err)
 			{
 			expect(err).to.exist
 			done()
@@ -65,7 +67,7 @@ describe('storageManager: googleStorage', function()
 
 	it('should throw an error when trying to overwrite a file', function(done)
 	{
-		googleStorage.addFile(path.resolve(__dirname, 'corruptfile1.txt'), 'testing/file1.txt', function(err, data)
+		googleStorage.addFile(path.resolve(__dirname, 'corruptfile1.txt'), 'testing/file1.txt', function(err)
 		{
 			expect(err).to.exist
 			done()
@@ -76,11 +78,11 @@ describe('storageManager: googleStorage', function()
 	{
 		googleStorage.listFiles(testingPath, function(err, data)
 		{
-//			console.log(data)
+			expect(data.length).to.not.equal(0)
 		})
 		googleStorage.listFiles('testing/subFolder/otherSubFolder', function(err, data)
 		{
-//			console.log(data)
+			expect(data.length).to.not.equal(0)
 			done()
 		})
 	})
@@ -89,14 +91,15 @@ describe('storageManager: googleStorage', function()
 	{
 		googleStorage.getFileUrl('testing/file1.txt', function(err, data)
 		{
-//			console.log(data)
+			//check data
+			expect(data).to.exist
 			done()
 		})
 	})
 
 	it('should throw an error trying to remove a nonexistent file', function(done)
 	{
-		googleStorage.deleteFile('testing/file4.txt', function(err, data)
+		googleStorage.deleteFile('testing/file4.txt', function(err)
 		{
 			expect(err).to.exist
 			done()

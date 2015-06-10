@@ -38,7 +38,7 @@ listFiles: function(path, callback)
 	this.bucket.getFiles(
 			{
 				prefix: path
-			},function(err, files, nextQuery, apiResponse)
+			},function(err, files)
 	{
 				if (err)
 				{
@@ -84,7 +84,7 @@ addFile: function(sourcePath, destinationPath, callback)
 	//	resumable: true,
 		validation: 'crc32c',
 	}
-	this.bucket.upload(sourcePath, options, function(err, file)
+	this.bucket.upload(sourcePath, options, function(err)
 		{
 				if (err)
 				{
@@ -112,24 +112,9 @@ deleteFile : function(file, callback)
 {
 	var fileToDelete = this.bucket.file(file)
 	fileToDelete.delete(function(err)
-			{ 
-			callback(err)
-			})	
-//	console.log(fileToDelete)
-/*	this.isFile(file, function(err, fileBool)
-	{
-		if (fileBool)
-		{
-			filetoDelete.delete(function(err)
 			{
-				callback(err)
-			}) // potentially function(err, apiResponse)
-		}
-		else
-		{
-				callback(new Error("The file you tried to delete does not exist"))
-		}
-	})*/
+			callback(err)
+			})
 },
 
 
@@ -137,18 +122,13 @@ deleteFile : function(file, callback)
 isFile: function(file, callback)
 {
 	var fileToGet = this.bucket.file(file)
-	fileToGet.getMetadata(function(err, metaData, apiResponse)
+	fileToGet.getMetadata(function(err)
 			{
 			 if (err)
 				 callback(null, false)
 			else
 				callback(null, true)
 			})
-},
-
-listDirs: function(path, callback)
-{
-	//List all directories in a certain path
 },
 
 // end of class
