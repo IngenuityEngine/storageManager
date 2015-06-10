@@ -2,7 +2,7 @@
 // Vendor Modules
 /////////////////////////
 var expect = require('expect.js')
-
+var _ = require('lodash')
 // Our Modules
 /////////////////////////
 var storageManager = require('../')
@@ -24,7 +24,7 @@ describe('storageManger: googleStorage', function()
 	it('should list files', function(done)
 	{
 		var googleStorage = storageManager.start('google', 'hey', function(){})
-		googleStorage.listFiles("", function(err, data)
+		googleStorage.listFiles("subFolderTest", function(err, data)
 		{
 			if (err)
 			{
@@ -33,6 +33,13 @@ describe('storageManger: googleStorage', function()
 			}
 			else
 			{
+<<<<<<< HEAD
+=======
+				_.forEach(data, function(toPrint)
+						{
+							console.log(toPrint)
+						})
+>>>>>>> origin/master
 				done(null, data)
 			}
 		})

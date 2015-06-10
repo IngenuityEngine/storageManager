@@ -36,7 +36,10 @@ start: function(options, callback)
 
 listFiles: function(path, callback)
 {
-	this.bucket.getFiles(function(err, files, nextQuery, apiResponse)
+	this.bucket.getFiles(
+			{
+				prefix: path
+			},function(err, files, nextQuery, apiResponse)
 	{
 				if (err)
 				{
@@ -54,7 +57,8 @@ listFiles: function(path, callback)
 							size: entry.metadata.size,
 							updated: entry.metadata.updated
 						}
-						fileData += data
+					//	console.log(data)
+						fileData.push(data)
 					})		
 					callback(null, fileData)
 				}		
