@@ -39,9 +39,25 @@ listFiles: function(path, callback)
 	this.bucket.getFiles(function(err, files, nextQuery, apiResponse)
 	{
 				if (err)
+				{
 					callback(err)
+				}		
 				else
-					callback(null, files[0].metadata)
+				{	
+					var fileData=[]
+					_.forEach(files, function(entry)
+					{
+						var data = 
+						{
+							key: entry.metadata.name,
+							name: entry.metadata.name,
+							size: entry.metadata.size,
+							updated: entry.metadata.updated
+						}
+						fileData += data
+					})		
+					callback(null, fileData)
+				}		
 	})
 },
 
@@ -85,7 +101,7 @@ addFile: function(sourcePath, destinationPath, callback)
 // which returns a temporary link (time to be specified)
 getFileUrl: function(file, callback)
 {
-	var url = "http://storage.googleapis.com/"+this.bucket+"/"+file
+	var url = "http://storage.googleapis.com/"+config.bucket+"/"+file
 	callback(null, url)
 },
 

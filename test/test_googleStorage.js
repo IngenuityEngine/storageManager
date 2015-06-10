@@ -33,7 +33,7 @@ describe('storageManger: googleStorage', function()
 			}
 			else
 			{
-				console.log(data)
+				console.log(JSON.stringify(data))
 				done(null, data)
 			}
 		})
