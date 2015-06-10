@@ -88,7 +88,6 @@ addFile: function(sourcePath, destinationPath, callback)
 		{
 				if (err)
 				{
-					console.log(err.stack)
 					callback(err)
 				}
 				else
@@ -112,7 +111,12 @@ getFileUrl: function(file, callback)
 deleteFile : function(file, callback)
 {
 	var fileToDelete = this.bucket.file(file)
-	this.isFile(file, function(err, fileBool)
+	fileToDelete.delete(function(err)
+			{ 
+			callback(err)
+			})	
+//	console.log(fileToDelete)
+/*	this.isFile(file, function(err, fileBool)
 	{
 		if (fileBool)
 		{
@@ -125,7 +129,7 @@ deleteFile : function(file, callback)
 		{
 				callback(new Error("The file you tried to delete does not exist"))
 		}
-	})
+	})*/
 },
 
 
