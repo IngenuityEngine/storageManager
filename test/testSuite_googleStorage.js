@@ -76,11 +76,11 @@ describe('storageManager: googleStorage', function()
 	{
 		googleStorage.listFiles(testingPath, function(err, data)
 		{
-			console.log(data)
+//			console.log(data)
 		})
 		googleStorage.listFiles('testing/subFolder/otherSubFolder', function(err, data)
 		{
-			console.log(data)
+//			console.log(data)
 			done()
 		})
 	})
@@ -89,7 +89,7 @@ describe('storageManager: googleStorage', function()
 	{
 		googleStorage.getFileUrl('testing/file1.txt', function(err, data)
 		{
-			console.log(data)
+//			console.log(data)
 			done()
 		})
 	})
