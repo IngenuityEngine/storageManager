@@ -37,12 +37,12 @@ start: function(options, callback)
 listFiles: function(path, callback)
 {
 	this.bucket.getFiles(function(err, files, nextQuery, apiResponse)
-			{
+	{
 				if (err)
 					callback(err)
 				else
 					callback(null, files[0].metadata)
-			})
+	})
 },
 
 getFile: function(sourcePath, destinationPath, callback)
@@ -67,7 +67,7 @@ addFile: function(sourcePath, destinationPath, callback)
 		validation: 'crc32c',
 	}
 	this.bucket.upload(sourcePath, options, function(err, file)
-	 	{
+		{
 				if (err)
 				{
 					console.log(err.stack)
@@ -80,26 +80,34 @@ addFile: function(sourcePath, destinationPath, callback)
 			})
 },
 
+// May not retrieve a valid link!
+//If this were to be bercome a more secure private app, better to use file.getSignedUrl method
+// which returns a temporary link (time to be specified)
 getFileUrl: function(file, callback)
 {
-
-	var fileToGet = this.bucket.file(file)
-	fileToGet.getSignedUrl(
-			{
-				action: 'read',
-				expires: Math.round(Date.now() / 1000) + (60*60*24*14), //2 weeks
-			},
-			function(err, url)
-			{
-				callback(err, url)
-			})
+	var url = "http://storage.googleapis.com/"+this.bucket+"/"+file
+	callback(null, url)
 },
 
 
 
 deleteFile : function(file, callback)
 {
-	//delete a file
+	var fileToDelete = this.bucket.file(file)
+	this.isFile(file, function(err, fileBool)
+	{
+		if (fileBool)
+		{
+			filetoDelete.delete(function(err)
+			{
+				callback(err)
+			}) // potentially function(err, apiResponse)
+		}
+		else
+		{
+				callback(new Error("The file you tried to delete does not exist"))
+		}
+	})
 },
 
 
@@ -120,16 +128,6 @@ listDirs: function(path, callback)
 {
 	//List all directories in a certain path
 },
-
-makeDir: function(path, callback)
-{
-	//Creates a new directory in the specified location
-},
-
-removeDir: function(path, callback)
-{
-	//Removes a directory and all its contents
-}
 
 // end of class
 })
