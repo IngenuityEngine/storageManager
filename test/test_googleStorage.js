@@ -24,7 +24,7 @@ describe('storageManger: googleStorage', function()
 	it('should list files', function(done)
 	{
 		var googleStorage = storageManager.start('google', 'hey', function(){})
-		googleStorage.listFiles("", function(err, data)
+		googleStorage.listFiles("subFolderTest", function(err, data)
 		{
 			if (err)
 			{

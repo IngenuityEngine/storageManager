@@ -36,7 +36,10 @@ start: function(options, callback)
 
 listFiles: function(path, callback)
 {
-	this.bucket.getFiles(function(err, files, nextQuery, apiResponse)
+	this.bucket.getFiles(
+			{
+				prefix: path
+			},function(err, files, nextQuery, apiResponse)
 	{
 				if (err)
 				{
