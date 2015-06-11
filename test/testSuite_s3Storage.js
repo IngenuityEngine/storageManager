@@ -76,14 +76,14 @@ describe('storageManager: s3Storage', function()
 			})
 	})
 
-/*	it('should throw an error when trying to overwrite a file', function(done)
+	it('should throw an error when trying to overwrite a file', function(done)
 	{
 		s3Storage.addFile(path.resolve(__dirname, 'corruptfile1.txt'), 'testing/file1.txt', function(err)
 		{
-			expect(err).to.be.ok()
+			expect(err).to.not.be.ok()
 			done()
 		})
-	}) */
+	})
 
 	it('should list files with stuff inside of them', function(done)
 	{
@@ -102,21 +102,19 @@ describe('storageManager: s3Storage', function()
 	{
 		s3Storage.getFileUrl('testing/file1.txt', function(err, data)
 		{
-			console.log(data)
 			expect(data).to.be.equal('http://'+config.storage.s3.bucket+'.s3.amazonaws.com/testing/file1.txt')
 			done()
 		})
 	})
 
-/*	it('should throw an error trying to remove a nonexistent file', function(done)
+	it('should throw an error trying to remove a nonexistent file', function(done)
 	{
-			console.log(s3Storage.isFile('testing/file4.txt', function(){}))
 		s3Storage.deleteFile('testing/file4.txt', function(err)
 		{
-			expect(err).to.be.ok()
+			expect(err).to.not.be.ok()
 			done()
 		})
-	})  */
+	})
 
 	it('should remove files cleanly', function(done)
 	{
