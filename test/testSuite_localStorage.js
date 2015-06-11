@@ -132,7 +132,7 @@ describe('storageManager: localStorage', function()
 
 	after(function()
 	{
-		console.log("is this being called?")
+
 		fs.unlink('C:/dev/storageManager/test/downloadedfile1.txt')
 		fs.rmrf('C:/dev/storageManager/testing/subFolder/otherSubFolder/')
 		fs.rmrf('C:/dev/storageManager/testing/subFolder/')
