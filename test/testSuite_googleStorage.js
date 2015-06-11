@@ -68,7 +68,6 @@ describe('storageManager: googleStorage', function()
 		})
 	})
 
-
 	it('should throw an error when specifying a nonexistent file to add', function(done)
 	{
 		googleStorage.addFile(path.resolve(__dirname,'nonexistentfile.txt'), 'testing/file3.txt', function(err)
