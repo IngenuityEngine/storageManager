@@ -10,7 +10,7 @@ var s3 = require('s3')
 // Our Modules
 /////////////////////////
 var StorageManager = require('./storageManager')
-var s3Config = require('./awsconfig').s3 // To get the bucket name
+//var s3Config = require('./awsconfig').s3 // To get the bucket name
 
 
 
@@ -31,8 +31,17 @@ start: function(options, callback)
 	{
 		s3Client: this.AWSConnection
 	}
+	this.AWSConnection = new AWS.S3()
 	this.client = s3.createClient(awsOptions)
-	this.bucket = s3Config.bucket
+	/*this.client = s3.createClient({
+		s3Options:
+		{
+			accessKeyId: options.storage.s3.accessKeyId,
+			secretAccessKey: options.storage.s3.secretAccessKey,
+			region: options.storage.s3.region
+		}
+	}) */
+	this.bucket = options.storage.s3.bucket
 	callback()
 },
 
@@ -169,20 +178,6 @@ getFileUrl: function(file, callback)
 			callback(new Error(file," does not exist!"))
 	})
 	//callback(null, s3.getPublicUrlHttp(this.bucket, info))
-},
-
-listDirs: function(path, callback)
-{
-	this.listFiles(path, function(err, data)
-	{
-		if (err)
-			return callback(err)
-		var directories = _.filter(data, function(entry)
-		{
-			return (entry.Key.slice(-1) === '/')
-		})
-		callback(null, directories)
-	})
 },
 
 // end of class

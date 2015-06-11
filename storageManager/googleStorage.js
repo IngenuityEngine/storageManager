@@ -3,10 +3,11 @@
 /////////////////////////
 // var async = require('async')
 var _ = require('lodash')
-var gcloud = require('gcloud')({
+var gcloud = require('gcloud')
+/*({
 	projectId: 'metal-sky-96603',
 	keyFilename: '/tmp/otherGoogleConfig.json'
-})
+})*/
 //bucket name
 var config =
 {
@@ -25,8 +26,12 @@ var googleStorage = module.exports = StorageManager.Base.extend({
 
 start: function(options, callback)
 {
-	this.storage = gcloud.storage()
-	this.bucket = this.storage.bucket(config.bucket)
+	this.storage = gcloud.storage(
+	{
+		projectId: options.storage.google.projectId,
+		keyFilename: options.storage.google.keyFilename,
+	})
+	this.bucket = this.storage.bucket(options.storage.google.bucket)
 	callback()
 },
 

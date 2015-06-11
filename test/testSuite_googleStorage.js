@@ -12,9 +12,10 @@ var before = global.before
 var it = global.it
 var after = global.after
 //var config = require('c:/temp/config.js')
+var config = require('/tmp/config.js')
 
 // Testing variables
-var testingPath = "testing"
+var testingPath = 'testing'
 var googleStorage
 var localPath
 
@@ -24,14 +25,14 @@ describe('storageManager: googleStorage', function()
 
 	before(function()
 	{
-		googleStorage = storageManager.start('google', null, function(){})
+		googleStorage = storageManager.start('google', config, function(){})
 		localPath = __dirname
 	})
 
 
 	it('should load', function(done)
 	{
-		storageManager.start('google', null, done)
+		storageManager.start('google', config, done)
 	})
 
 	it('should list Files as being empty', function(done)
@@ -45,14 +46,26 @@ describe('storageManager: googleStorage', function()
 
 	it('should add files ', function(done)
 	{
-		googleStorage.addFile(path.resolve(__dirname, 'file1.txt'), 'testing/file1.txt', function(){})
-		googleStorage.addFile(path.resolve(__dirname, 'file2.txt'), 'testing/subFolder/otherSubFolder/file2.txt', function(){})
-		googleStorage.addFile(path.resolve(__dirname, 'file3.txt'), 'testing/subFolder/file3.txt', done)
+		googleStorage.addFile(path.resolve(__dirname, 'file1.txt'), 'testing/file1.txt', function(err){
+			expect(err).to.not.be.ok()
+		})
+		googleStorage.addFile(path.resolve(__dirname, 'file2.txt'), 'testing/subFolder/otherSubFolder/file2.txt', function(err){
+			expect(err).to.not.be.ok()
+		})
+		googleStorage.addFile(path.resolve(__dirname, 'file3.txt'), 'testing/subFolder/file3.txt', function(err){
+			expect(err).to.not.be.ok()
+			done()
+		})
 	})
 
 	it('should get files', function(done)
 	{
-		googleStorage.getFile('testing/file1.txt', path.resolve(__dirname, 'downloadedfile1.txt'), done)
+		googleStorage.getFile('testing/file1.txt', path.resolve(__dirname, 'downloadedfile1.txt'), function(err)
+		{
+			expect(fs.fileExists(path.resolve(__dirname), 'downloadedfile1.txt')).to.be(true)
+			expect(err).to.not.be.ok()
+			done()
+		})
 	})
 
 
@@ -60,8 +73,8 @@ describe('storageManager: googleStorage', function()
 	{
 		googleStorage.addFile(path.resolve(__dirname,'nonexistentfile.txt'), 'testing/file3.txt', function(err)
 			{
-			expect(err).to.exist
-			done()
+				expect(err).to.be.ok()
+				done()
 			})
 	})
 
@@ -69,7 +82,7 @@ describe('storageManager: googleStorage', function()
 	{
 		googleStorage.addFile(path.resolve(__dirname, 'corruptfile1.txt'), 'testing/file1.txt', function(err)
 		{
-			expect(err).to.exist
+			expect(err).to.be.ok()
 			done()
 		})
 	})
@@ -82,7 +95,7 @@ describe('storageManager: googleStorage', function()
 		})
 		googleStorage.listFiles('testing/subFolder/otherSubFolder', function(err, data)
 		{
-			expect(data.length).to.not.equal(0)
+			expect(data.length).to.equal(1)
 			done()
 		})
 	})
@@ -92,7 +105,7 @@ describe('storageManager: googleStorage', function()
 		googleStorage.getFileUrl('testing/file1.txt', function(err, data)
 		{
 			//check data
-			expect(data).to.exist
+			expect(data).to.be.ok()
 			done()
 		})
 	})
@@ -101,16 +114,26 @@ describe('storageManager: googleStorage', function()
 	{
 		googleStorage.deleteFile('testing/file4.txt', function(err)
 		{
-			expect(err).to.exist
+			expect(err).to.be.ok()
 			done()
 		})
 	})
 
 	it('should remove files cleanly', function(done)
 	{
-		googleStorage.deleteFile('testing/file1.txt', function(){})
-		googleStorage.deleteFile('testing/subFolder/otherSubFolder/file2.txt', function(){})
-		googleStorage.deleteFile('testing/subFolder/file3.txt', done)
+		googleStorage.deleteFile('testing/file1.txt', function(err)
+		{
+			expect(err).to.not.be.ok()
+		})
+		googleStorage.deleteFile('testing/subFolder/otherSubFolder/file2.txt', function(err)
+		{
+			expect(err).to.not.be.ok()
+		})
+		googleStorage.deleteFile('testing/subFolder/file3.txt', function(err)
+			{
+				expect(err).to.not.be.ok()
+				done
+			})
 	})
 
 	after(function()
