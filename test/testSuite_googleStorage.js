@@ -62,7 +62,7 @@ describe('storageManager: googleStorage', function()
 	{
 		googleStorage.getFile('testing/file1.txt', path.resolve(__dirname, 'downloadedfile1.txt'), function(err)
 		{
-			expect(fs.fileExists(path.resolve(__dirname), 'downloadedfile1.txt')).to.be(true)
+		//	expect(fs.fileExists(path.resolve(__dirname), 'downloadedfile1.txt')).to.be(true)
 			expect(err).to.not.be.ok()
 			done()
 		})
@@ -132,7 +132,7 @@ describe('storageManager: googleStorage', function()
 		googleStorage.deleteFile('testing/subFolder/file3.txt', function(err)
 			{
 				expect(err).to.not.be.ok()
-				done
+				done()
 			})
 	})
 
