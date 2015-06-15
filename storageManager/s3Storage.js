@@ -2,7 +2,7 @@
 // Vendor Modules
 /////////////////////////
 // var async = require('async')
-var _ = require('lodash')
+//var _ = require('lodash')
 var AWS = require('aws-sdk')
 var s3 = require('s3')
 
@@ -10,7 +10,6 @@ var s3 = require('s3')
 // Our Modules
 /////////////////////////
 var StorageManager = require('./storageManager')
-//var s3Config = require('./awsconfig').s3 // To get the bucket name
 
 
 
@@ -24,7 +23,7 @@ start: function(options, callback)
 	//This path should load to a config.json file
 	//with accessKeyId, secretAccessKey and region
 	//fields corresponding to S3's credentials.
-	AWS.config.loadFromPath('C:/dev/config.json')
+	AWS.config.loadFromPath(options.storage.s3.keyPath)
 
 	this.AWSConnection = new AWS.S3()
 	var awsOptions =
@@ -33,14 +32,6 @@ start: function(options, callback)
 	}
 	this.AWSConnection = new AWS.S3()
 	this.client = s3.createClient(awsOptions)
-	/*this.client = s3.createClient({
-		s3Options:
-		{
-			accessKeyId: options.storage.s3.accessKeyId,
-			secretAccessKey: options.storage.s3.secretAccessKey,
-			region: options.storage.s3.region
-		}
-	}) */
 	this.bucket = options.storage.s3.bucket
 	callback()
 },
@@ -177,7 +168,6 @@ getFileUrl: function(file, callback)
 		else
 			callback(new Error(file," does not exist!"))
 	})
-	//callback(null, s3.getPublicUrlHttp(this.bucket, info))
 },
 
 // end of class
