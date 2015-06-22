@@ -4,11 +4,7 @@
 // var async = require('async')
 var _ = require('lodash')
 var gcloud = require('gcloud')
-/*({
-	projectId: 'metal-sky-96603',
-	keyFilename: '/tmp/otherGoogleConfig.json'
-})*/
-//bucket name
+
 var config =
 {
 	bucket: 'just_a_test'
