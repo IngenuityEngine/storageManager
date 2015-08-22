@@ -37,30 +37,29 @@ start: function(options, callback)
 listFiles: function(path, callback)
 {
 	this.bucket.getFiles(
-			{
-				prefix: path
-			},function(err, files)
 	{
-				if (err)
-				{
-					callback(err)
-				}
-				else
-				{
-					var fileData=[]
-					_.forEach(files, function(entry)
-					{
-						var data =
-						{
-							key: entry.metadata.name,
-							name: entry.metadata.name,
-							size: entry.metadata.size,
-							updated: entry.metadata.updated
-						}
-						fileData.push(data)
-					})
-					callback(null, fileData)
-				}
+		prefix: path
+	},
+	function(err, files)
+	{
+		if (err)
+		{
+			return callback(err)
+		}
+		var fileData=[]
+		_.forEach(files, function(entry)
+		{
+			var data =
+			{
+				key: entry.metadata.name,
+				name: entry.metadata.name,
+				size: entry.metadata.size,
+				updated: entry.metadata.updated
+			}
+			fileData.push(data)
+		})
+
+		callback(null, fileData)
 	})
 },
 
@@ -71,10 +70,7 @@ getFile: function(sourcePath, destinationPath, callback)
 		{
 			destination: destinationPath
 		},
-			function(err)
-		{
-			callback(err)
-		})
+		callback)
 },
 
 addFile: function(sourcePath, destinationPath, callback)
@@ -85,17 +81,7 @@ addFile: function(sourcePath, destinationPath, callback)
 	//	resumable: true,
 		validation: 'crc32c',
 	}
-	this.bucket.upload(sourcePath, options, function(err)
-		{
-				if (err)
-				{
-					callback(err)
-				}
-				else
-				{
-					callback()
-				}
-			})
+	this.bucket.upload(sourcePath, options, callback)
 },
 
 // May not retrieve a valid link!
@@ -103,7 +89,7 @@ addFile: function(sourcePath, destinationPath, callback)
 // which returns a temporary link (time to be specified)
 getFileUrl: function(file, callback)
 {
-	var url = "http://storage.googleapis.com/"+config.bucket+"/"+file
+	var url = 'http://storage.googleapis.com/'+config.bucket+'/'+file
 	callback(null, url)
 },
 
@@ -112,10 +98,7 @@ getFileUrl: function(file, callback)
 deleteFile : function(file, callback)
 {
 	var fileToDelete = this.bucket.file(file)
-	fileToDelete.delete(function(err)
-			{
-			callback(err)
-			})
+	fileToDelete.delete(callback)
 },
 
 

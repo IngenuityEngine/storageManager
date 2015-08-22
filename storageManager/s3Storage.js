@@ -51,7 +51,7 @@ listFiles: function(path, callback)
 
 	fileList.on('error', function(err)
 	{
-		console.log("Error listing files")
+		console.log('Error listing files')
 		callback(err)
 	})
 	.on('end', function()
@@ -166,7 +166,7 @@ getFileUrl: function(file, callback)
 		if (fileExists)
 			callback(null, s3.getPublicUrlHttp(tmpBucket, file))
 		else
-			callback(new Error(file," does not exist!"))
+			callback(new Error(file,' does not exist!'))
 	})
 },
 

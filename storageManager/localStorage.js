@@ -21,23 +21,13 @@ listFiles: function(filePath, callback)
 },
 
 
-
 getFile: function(sourcePath, destinationPath, callback)
 {
-
 	fs.mkdirp(path.parse(destinationPath).dir, function(err)
 	{
 		if (err)
-		{
-			callback(err)
-		}
-		else
-		{
-			fs.copy(sourcePath, destinationPath, function(err)
-			{
-				callback(err)
-			})
-		}
+			return callback(err)
+		fs.copy(sourcePath, destinationPath, callback)
 	})
 },
 
@@ -49,9 +39,7 @@ addFile: function(sourcePath, destinationPath, callback)
 
 getFileUrl: function(file, callback)
 {
-
 	callback(null, path.resolve(file))
-
 },
 
 deleteFile: function(file, callback)
