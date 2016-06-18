@@ -1,5 +1,4 @@
 require("../../node_modules/coren/shared/components/coren_backend")
-require("../../node_modules/coren/shared/components/coren_test")
 
 module.exports = {
     "basics": {
@@ -8,25 +7,18 @@ module.exports = {
         "description": "Simple site management",
         "author": "Grant Miller",
         "css": [
-            "/vendor/mocha.css",
             "/css/base.css"
         ],
         "javascript": [
             "/vendor/jquery.js",
-            "/vendor/jquery-sortable.js",
             "/js/main.js"
         ],
         "apps": {
-            "coren_backendAppView": "node_modules/coren/shared/components/coren_backend",
-            "coren_testAppView": "node_modules/coren/shared/components/coren_test"
+            "coren_backendAppView": "node_modules/coren/shared/components/coren_backend"
         },
-        "port": 2160,
+        "port": 2150,
         "fonts": [
             "http://fonts.googleapis.com/css?family=Roboto:100,300,400,500"
-        ],
-        "testJavascript": [
-            "/vendor/expect.js",
-            "/vendor/mocha.js"
         ]
     },
     "coren": {
