@@ -16,7 +16,7 @@ Base: Class.extend({
 
 	init: function()
 	{
-		_.bindAll(this)
+		_.bindAll(this, _.functionsIn(this))
 	},
 
 	start: function(options, callback)
